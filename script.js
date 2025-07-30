@@ -99,7 +99,7 @@ async function displayAlbums() {
 }
 
 async function main() {
-    await getSongs("songs/Angry(mood)");
+    await getSongs("songs/ncs");
     playMusic(songs[0], true);
     displayAlbums();
 
