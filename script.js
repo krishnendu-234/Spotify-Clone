@@ -132,36 +132,22 @@ async function main() {
         document.querySelector(".left").style.left = "-120%";
     });
 
-        //Add an event listener for previous button
-
     previous.addEventListener("click", () => {
-        console.log("Previous clicked")
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-        console.log(songs, index)
-        if ((index - 1) >= 0) {
-            playMusic(songs[index - 1])
-        }
-    })
+    let filename = decodeURIComponent(currentSong.src.split("/").pop());
+    let index = songs.findIndex(song => decodeURIComponent(song) === filename);
+    if (index > 0) {
+        playMusic(songs[index - 1]);
+    }
+});
 
-    //Add an event listener for next button
-    next.addEventListener("click", () => {
-        console.log("Next clicked")
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-        console.log(songs, index)
-        if ((index + 1) < songs.length) {
-            playMusic(songs[index + 1])
-        }
-    })
+next.addEventListener("click", () => {
+    let filename = decodeURIComponent(currentSong.src.split("/").pop());
+    let index = songs.findIndex(song => decodeURIComponent(song) === filename);
+    if (index !== -1 && index + 1 < songs.length) {
+        playMusic(songs[index + 1]);
+    }
+});
 
-    // previous.addEventListener("click", () => {
-    //     let index = songs.indexOf(currentSong.src.split("/").pop());
-    //     if (index > 0) playMusic(songs[index - 1]);
-    // });
-
-    // next.addEventListener("click", () => {
-    //     let index = songs.indexOf(currentSong.src.split("/").pop());
-    //     if (index + 1 < songs.length) playMusic(songs[index + 1]);
-    // });
 
     document.querySelector(".range input").addEventListener("change", e => {
         currentSong.volume = parseInt(e.target.value) / 100;
